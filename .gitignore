@@ -2,3 +2,5 @@
 opendap_testscript.py
 download/
 download_testing/
+__pycache__/
+test.csv
