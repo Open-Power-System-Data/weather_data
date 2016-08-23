@@ -65,7 +65,7 @@ class DownloadManager(object):
         self.__download_and_save_file(query, file_path)
 
     def start_download(self, nr_of_processes=4):
-        self._authenticated_session = self.__authenticate()
+        self._authenticated_session = self.__create_authenticated_sesseion()
         p = multiprocessing.Pool(nr_of_processes)
         p.map(self._mp_download_wrapper, self.links)
 
@@ -77,7 +77,7 @@ class DownloadManager(object):
                     f.write(chunk)
         return r.status_code
 
-    def __authenticate(self):
+    def __create_authenticated_sesseion(self):
         s = requests.Session()
         s.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.85 Safari/537.36'}
