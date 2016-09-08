@@ -91,7 +91,7 @@ class DownloadManager(object):
         if self._authenticated_session is None:
             self._authenticated_session = self.__create_authenticated_sesseion()
         # Create the download folder.
-        os.makedirs(self.download_path, exist_ok=False)
+        os.makedirs(self.download_path, exist_ok=True)
         p = multiprocessing.Pool(nr_of_processes)
         p.map(self._mp_download_wrapper, self.download_urls)
 
