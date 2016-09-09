@@ -6,3 +6,5 @@ __pycache__/
 test.csv
 credentials.yaml
 testing/
+roughness_download/
+weather_script_result.csv
