@@ -4,7 +4,10 @@ download/
 download_testing/
 __pycache__/
 test.csv
+<<<<<<< HEAD
 credentials.yaml
 testing/
 roughness_download/
 weather_script_result.csv
+=======
+>>>>>>> master
