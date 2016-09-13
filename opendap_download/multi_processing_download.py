@@ -5,6 +5,7 @@ __author__ = "Jan Urbansky"
 # TODO: Proper readme with examples.
 
 import multiprocessing
+from multiprocessing.dummy import Pool as Threadpool
 import requests
 import logging
 import yaml
@@ -87,13 +88,16 @@ class DownloadManager(object):
         file_path = os.path.join(self.download_path, self.get_filename(query))
         self.__download_and_save_file(query, file_path)
 
-    def start_download(self, nr_of_processes=4):
+    def start_download(self, nr_of_threads=4):
         if self._authenticated_session is None:
             self._authenticated_session = self.__create_authenticated_sesseion()
         # Create the download folder.
         os.makedirs(self.download_path, exist_ok=True)
-        p = multiprocessing.Pool(nr_of_processes)
+        # p = multiprocessing.Pool(nr_of_processes)
+        p = Threadpool(nr_of_threads)
         p.map(self._mp_download_wrapper, self.download_urls)
+        p.close()
+        p.join()
 
     @staticmethod
     def get_filename(url):
