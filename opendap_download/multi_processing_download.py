@@ -19,6 +19,8 @@ import re
 log = logging.getLogger('opendap_download')
 
 
+
+
 class DownloadManager(object):
     __AUTHENTICATION_URL = 'https://urs.earthdata.nasa.gov/oauth/authorize'
     __username = ''
@@ -31,7 +33,11 @@ class DownloadManager(object):
         self.set_username_and_password(username, password)
         self.download_urls = links
         self.download_path = download_path
-        # self.download_path = download_path
+
+        if logging.getLogger().getEffectiveLevel() == logging.INFO:
+            logging.getLogger("requests").setLevel(logging.CRITICAL)
+            logging.getLogger("urllib3").setLevel(logging.CRITICAL)
+        
         log.debug('Init DownloadManager')
 
     @property
