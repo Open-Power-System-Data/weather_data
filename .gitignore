@@ -8,7 +8,6 @@ credentials.yaml
 testing/
 roughness_download/
 weather_script_result.csv
-
 dimension_scale/
 Testing.ipynb
 .ipynb_checkpoints/Testing-checkpoint.ipynb
