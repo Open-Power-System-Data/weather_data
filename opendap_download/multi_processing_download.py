@@ -1,10 +1,8 @@
 __author__ = "Jan Urbansky"
 
 # TODO: Change and describe structure of the links that have to be provided.
-# TODO: Test multithreading vs multprocessing
 # TODO: Proper readme with examples.
 
-import multiprocessing
 from multiprocessing.dummy import Pool as Threadpool
 import requests
 import logging
