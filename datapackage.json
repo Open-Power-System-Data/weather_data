@@ -1,0 +1,36 @@
+{
+    "openpowersystemdata-enable-listing": true,
+    "contributors": [
+        {
+            "name": "Jan Urbansky",
+            "email": "jan.urbansky@uni-flensburg.de",
+            "web": "http://open-power-system-data.org/"
+        }
+    ],
+    "views": true,
+    "licenses": [
+        {
+            "type": "MIT license",
+            "url": "http://www.opensource.org/licenses/MIT"
+        }
+    ],
+    "description": "Script for the download of MERRA-2 weather data",
+    "geographical-scope": "Worldwide",
+    "sources": [
+        {
+            "name": "MERRA-2",
+            "source": "National Aeronautics and Space Administration - Goddard Space Flight Center",
+            "web": "https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/"
+        }
+    ],
+    "keywords": [
+        "MERRA-2",
+        "Download of Datasets"
+    ],
+    "version": "2016-10-21",
+    "long_description": "Weather data differ significantly from the other data types used resp.  provided by OPSD in that the sheer size of the data packages greatly  exceeds OPSD's capacity to host them in a similar way as feed-in  timeseries, power plant data etc. While the other data packages also offer a complete one-klick download of the bundled data packages with  all relevant data this is impossible for weather datasets like MERRA-2 due  to their size (variety of variables, very long timespan, huge geographical coverage etc.). It would make no sense to mirror the data from the NASA  servers. Instead we choose to provide a documented methodological script  (as a kind of tutorial). The method describes one way to automatically  obtain the desired weather data from the MERRA-2 database and simplifies  resp. unifies alternative manual data obtaining methods in a single  script.",
+    "name": "opsd-weather-data",
+    "documentation": "https://github.com/Open-Power-System-Data/weather_data/blob/2016-10-21/main.ipynb",
+    "last_changes": "Published on the main repository",
+    "title": "Weather data"
+}
