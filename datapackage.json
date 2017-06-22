@@ -1,101 +1,31 @@
 {
-    "documentation": "https://github.com/Open-Power-System-Data/weather_data/blob/2016-10-21/main.ipynb",
-    "geographical-scope": "Worldwide",
-    "title": "Weather data",
+    "hide": "yes",
+    "last_changes": "added download of solar, temperature, air density and pressure data",
     "licenses": [
         {
             "type": "MIT license",
             "url": "http://www.opensource.org/licenses/MIT"
         }
     ],
-    "last_changes": "Published on the main repository",
-    "description": "Script for the download of MERRA-2 weather data",
+    "deslong_description": "Weather data differ significantly from the other data types used resp.  provided by OPSD in that the sheer size of the data packages greatly  exceeds OPSD's capacity to host them in a similar way as feed-in  timeseries, power plant data etc. While the other data packages also offer a complete one-klick download of the bundled data packages with  all relevant data this is impossible for weather datasets like MERRA-2 due  to their size (variety of variables, very long timespan, huge geographical coverage etc.). It would make no sense to mirror the data from the NASA  servers. Instead we choose to provide a documented methodological script  (as a kind of tutorial). The method describes one way to automatically  obtain the desired weather data from the MERRA-2 database and simplifies  resp. unifies alternative manual data obtaining methods in a single  script. It is recommended to study the the \"Step-by-step user guide\" (developer use  case) on this platform to learn how to run the script.",
+    "version": "2017-06-22",
+    "title": "Weather data",
+    "views": true,
+    "geographical-scope": "Worldwide",
+    "documentation": "https://github.com/Open-Power-System-Data/weather_data/blob/2017-06-22/main.ipynb",
     "contributors": [
         {
+            "email": "martin.jahn@uni-flensburg.de",
             "web": null,
-            "name": "Jan Urbansky",
-            "email": "jan.urbansky@uni-flensburg.de"
-        }
-    ],
-    "long_description": "Weather data differ significantly from the other data types used resp.  provided by OPSD in that the sheer size of the data packages greatly  exceeds OPSD's capacity to host them in a similar way as feed-in  timeseries, power plant data etc. While the other data packages also offer a complete one-klick download of the bundled data packages with  all relevant data this is impossible for weather datasets like MERRA-2 due  to their size (variety of variables, very long timespan, huge geographical coverage etc.). It would make no sense to mirror the data from the NASA  servers. Instead we choose to provide a documented methodological script  (as a kind of tutorial). The method describes one way to automatically  obtain the desired weather data from the MERRA-2 database and simplifies  resp. unifies alternative manual data obtaining methods in a single  script.",
-    "views": true,
-    "resources": [
+            "name": "Martin Jahn"
+        },
         {
-            "encoding": "UTF-8",
-            "path": "renewable_power_plants_DE.csv",
-            "format": "csv",
-            "missingValue": "",
-            "schema": {
-                "fields": [
-                    {
-                        "description": "Timestap",
-                        "format": "YYYY-MM-DDThh:mm:ssZ",
-                        "type": "timestamp",
-                        "name": "timestamp"
-                    },
-                    {
-                        "description": "Cumulated hours over the defined timerange",
-                        "type": "int",
-                        "name": "cumulated hours"
-                    },
-                    {
-                        "description": "Latitude",
-                        "type": "string",
-                        "name": "lat"
-                    },
-                    {
-                        "description": "Longitude",
-                        "type": "float",
-                        "name": "lon"
-                    },
-                    {
-                        "description": "Windspeed at displacement height + 2m",
-                        "type": "float",
-                        "name": "v1",
-                        "unit": "m"
-                    },
-                    {
-                        "description": "Windspeed at displacement height + 10m",
-                        "type": "float",
-                        "name": "v2",
-                        "unit": "m"
-                    },
-                    {
-                        "description": "Windspeed at 50m height",
-                        "type": "float",
-                        "name": "v_50m",
-                        "unit": "m"
-                    },
-                    {
-                        "description": "Windspeed at 100m height",
-                        "type": "float",
-                        "name": "v_100m",
-                        "unit": "m"
-                    },
-                    {
-                        "description": "Height of v1",
-                        "type": "float",
-                        "name": "h_v1",
-                        "unit": "m"
-                    },
-                    {
-                        "description": "Height of v2",
-                        "type": "float",
-                        "name": "h_v2",
-                        "unit": "m"
-                    },
-                    {
-                        "description": "Roughness length",
-                        "type": "string",
-                        "name": "z0"
-                    }
-                ]
-            }
+            "email": "jan.urbansky@uni-flensburg.de",
+            "name": "Jan Urbansky"
         }
     ],
-    "version": "2016-10-21",
-    "openpowersystemdata-enable-listing": true,
     "name": "opsd-weather-data",
+    "description": "Script for the download of MERRA-2 weather data",
     "sources": [
         {
             "web": "https://gmao.gsfc.nasa.gov/reanalysis/MERRA-2/",
@@ -107,6 +37,9 @@
         "Open Power System Data",
         "MERRA-2",
         "wind",
-        "solar"
+        "solar",
+        "temperature",
+        "density",
+        "pressure"
     ]
 }
