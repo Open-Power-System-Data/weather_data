@@ -49,10 +49,10 @@ metadata_head = '''
 profile: tabular-data-package
 name: opsd_weather_data
 title: Weather Data
-description: Hourly country-aggregated weather data for Europe
-longDescription: 'This data package contains weather data relevant for power system modeling, at hourly resolution, for all European countries, from the NASA MERRA-2 reanalysis, aggregated to countries by Renewables.ninja, using population-weighted mean across all MERRA-2 grid cells within the given country.'
+description: Hourly geographically aggregated weather data for Europe
+longDescription: "This data package contains weather data relevant for power system modeling, at hourly resolution, for Europe, aggregated by Renewables.ninja from the NASA MERRA-2 reanalysis. It covers the European countries using a population-weighted mean across all MERRA-2 grid cells within the given country. It also cover Germany's NUTS-2 zones."
 homepage: 'https://data.open-power-system-data.org/weather_data/{version}'
-documentation: 'https://github.com/Open-Power-System-Data/datapackage_weather_data/blob/{version}/main.ipynb'
+documentation: 'https://github.com/Open-Power-System-Data/weather_data/blob/{version}/main.ipynb'
 version: '{version}'
 created: '{version}'
 lastChanges: '{changes}'
@@ -126,22 +126,29 @@ schema:
 
 
 def get_field(column):
-    """``column`` is a tuple of the form (countrycode, subcountrycode, variablename)"""
-    countrycode, subcountrycode, variable = column
+    """``column`` is a tuple of the form (geography, variable)"""
+    geography, variable = column
+
+    country = geography[0:2]
+
+    if len(geography) == 2:
+        resolution = 'Country'
+    else:
+        resolution = 'All NUTS-2 zones in country'
 
     field_template = '''
-    name: {region}_{variable}_{attribute}
-    description: {variable} weather variable for {attribute} in {country}
+    name: {geography}_{variable}
+    description: {variable} weather variable for {geography}
     type: number (float)
     opsdProperties:
-        Region: {region}
         Variable: {variable}
-        Attribute: {attribute}
+        Country: {country}
+        Resolution: {resolution}
     '''.format(
-        region=countrycode,
-        country=country_map[countrycode],
+        geography=geography,
         variable=variable,
-        attribute=subcountrycode,
+        country=country,
+        resolution=resolution,
     )
 
     return yaml.load(field_template)
