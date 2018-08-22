@@ -50,7 +50,7 @@ profile: tabular-data-package
 name: opsd_weather_data
 title: Weather Data
 description: Hourly geographically aggregated weather data for Europe
-longDescription: "This data package contains weather data relevant for power system modeling, at hourly resolution, for Europe, aggregated by Renewables.ninja from the NASA MERRA-2 reanalysis. It covers the European countries using a population-weighted mean across all MERRA-2 grid cells within the given country. It also cover Germany's NUTS-2 zones."
+longDescription: "This data package contains weather data relevant for power system modeling, at hourly resolution, for Europe, aggregated by Renewables.ninja from the NASA MERRA-2 reanalysis. It covers the European countries using a population-weighted mean across all MERRA-2 grid cells within the given country. It also covers Germany's NUTS-2 zones."
 homepage: 'https://data.open-power-system-data.org/weather_data/{version}'
 documentation: 'https://github.com/Open-Power-System-Data/weather_data/blob/{version}/main.ipynb'
 version: '{version}'
@@ -90,11 +90,11 @@ sources:
 resources:
 '''
 
-metadata_resource = '''
+metadata_resource_singleindex_csv = '''
 profile: tabular-data-resource
-name: opsd_weather_data_countries
-title: Weather Data - country-aggregated
-description: All available country-aggregated weather data
+name: opsd_weather_data
+title: Weather Data
+description: Geographically aggregated weather data
 path: weather_data_singleindex.csv
 format: csv
 mediatype: text/csv
@@ -113,6 +113,9 @@ alternativeFormats:
   - path: weather_data_multiindex.csv
     stacking: Multiindex
     format: csv
+  - path: weather_data.xlsx
+    stacking: Multiindex
+    format: xlsx
 schema:
     primaryKey: time
     missingValues: ""
@@ -122,6 +125,17 @@ schema:
         type: datetime
         format: "fmt:%Y-%m-%dT%H%M%SZ"
         opsdContentfilter: true
+'''
+
+metadata_resource_xlsx = '''
+name: opsd_weather_data
+title: Weather Data (Excel file)
+description: Geographically aggregated weather data (Excel file)
+path: weather_data.xlsx
+format: xlsx
+mediatype: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+bytes: {bytes}
+hash: {hash}
 '''
 
 
@@ -134,7 +148,7 @@ def get_field(column):
     if len(geography) == 2:
         resolution = 'Country'
     else:
-        resolution = 'All NUTS-2 zones in country'
+        resolution = 'NUTS-2'
 
     field_template = '''
     name: {geography}_{variable}
@@ -154,6 +168,16 @@ def get_field(column):
     return yaml.load(field_template)
 
 
+def get_resource_data(template, file_path):
+    filesize_bytes = os.path.getsize(file_path)
+    with open(file_path, 'rb') as f:
+        file_md5_hash = hashlib.md5(f.read()).hexdigest()
+
+    return yaml.load(
+        template.format(bytes=filesize_bytes, hash=file_md5_hash)
+    )
+
+
 def generate_json(df, version, changes):
     '''
     Creates a datapackage.json file that complies with the Frictionless
@@ -162,15 +186,13 @@ def generate_json(df, version, changes):
     Parameters
     ----------
     df: pandas.DataFrame
-        A dict with keys '15min' and '60min' and values the respective
-        DataFrames
     version: str
         Version tag of the Data Package
     changes : str
         Desription of the changes from the last version to this one.
 
     Returns
-    ----------
+    -------
     None
 
     '''
@@ -178,19 +200,20 @@ def generate_json(df, version, changes):
         metadata_head.format(version=version, changes=changes)
     )
 
-    md_resource_path = os.path.join(version, 'weather_data_singleindex.csv')
-    filesize_bytes = os.path.getsize(md_resource_path)
-    with open(md_resource_path, 'rb') as f:
-        file_md5_hash = hashlib.md5(f.read()).hexdigest()
+    md_resource_singleindex_csv = get_resource_data(
+        metadata_resource_singleindex_csv,
+        os.path.join(version, 'weather_data_singleindex.csv')
+    )
 
-    md_resource = yaml.load(
-        metadata_resource.format(bytes=filesize_bytes, hash=file_md5_hash)
+    md_resource_xlsx = get_resource_data(
+        metadata_resource_xlsx,
+        os.path.join(version, 'weather_data.xlsx')
     )
 
     fields = [get_field(col) for col in df.columns]
 
     metadata = md_head
-    metadata['resources'] = [md_resource]
+    metadata['resources'] = [md_resource_singleindex_csv, md_resource_xlsx]
     metadata['resources'][0]['schema']['fields'] += fields
 
     out_path = os.path.join(version, 'datapackage.json')
