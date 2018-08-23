@@ -95,7 +95,7 @@ profile: tabular-data-resource
 name: opsd_weather_data
 title: Weather Data
 description: Geographically aggregated weather data
-path: weather_data_singleindex.csv
+path: weather_data.csv
 format: csv
 mediatype: text/csv
 encoding: UTF8
@@ -107,7 +107,7 @@ dialect:
     lineTerminator: "\\n"
     header: true
 alternativeFormats:
-  - path: weather_data_singleindex.csv
+  - path: weather_data.csv
     stacking: Singleindex
     format: csv
   - path: weather_data_multiindex.csv
@@ -117,10 +117,10 @@ alternativeFormats:
     stacking: Multiindex
     format: xlsx
 schema:
-    primaryKey: time
+    primaryKey: utc_timestamp
     missingValues: ""
     fields:
-      - name: time
+      - name: utc_timestamp
         description: Start of time period in Coordinated Universal Time
         type: datetime
         format: "fmt:%Y-%m-%dT%H%M%SZ"
@@ -202,7 +202,7 @@ def generate_json(df, version, changes):
 
     md_resource_singleindex_csv = get_resource_data(
         metadata_resource_singleindex_csv,
-        os.path.join(version, 'weather_data_singleindex.csv')
+        os.path.join(version, 'weather_data.csv')
     )
 
     md_resource_xlsx = get_resource_data(

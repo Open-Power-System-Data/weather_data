@@ -3,3 +3,4 @@ __pycache__/
 downloads/
 datapackage.json
 20*-*-*/
+cached_dataframe.csv
