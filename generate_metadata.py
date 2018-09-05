@@ -113,9 +113,9 @@ alternativeFormats:
   - path: weather_data_multiindex.csv
     stacking: Multiindex
     format: csv
-  - path: weather_data.xlsx
-    stacking: Multiindex
-    format: xlsx
+#   - path: weather_data.xlsx
+#     stacking: Multiindex
+#     format: xlsx
 schema:
     primaryKey: utc_timestamp
     missingValues: ""
@@ -205,15 +205,15 @@ def generate_json(df, version, changes):
         os.path.join(version, 'weather_data.csv')
     )
 
-    md_resource_xlsx = get_resource_data(
-        metadata_resource_xlsx,
-        os.path.join(version, 'weather_data.xlsx')
-    )
+    # md_resource_xlsx = get_resource_data(
+    #     metadata_resource_xlsx,
+    #     os.path.join(version, 'weather_data.xlsx')
+    # )
 
     fields = [get_field(col) for col in df.columns]
 
     metadata = md_head
-    metadata['resources'] = [md_resource_singleindex_csv, md_resource_xlsx]
+    metadata['resources'] = [md_resource_singleindex_csv]  # , md_resource_xlsx]
     metadata['resources'][0]['schema']['fields'] += fields
 
     out_path = os.path.join(version, 'datapackage.json')

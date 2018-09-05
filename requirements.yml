@@ -10,9 +10,11 @@ dependencies:
   - pandas=0.23.4
   - geopandas
   - jupyter
-  - openpyxl  # pandas: excel i/o
+  - openpyxl=2.5.5  # pandas: excel i/o; v2.5.6 produces error
   - ruamel.yaml<=0.15
   - xlrd  # pandas: excel i/o
   - tqdm
+  - joblib
+  - pyyaml
   - pip:
     - gsee==0.2.0
