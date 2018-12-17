@@ -141,6 +141,14 @@ hash: {hash}
 
 def get_field(column):
     """``column`` is a tuple of the form (geography, variable)"""
+    # HACK: units hardcoded here
+    units = {
+        'temperature': 'degrees C',
+        'windspeed_10m': 'm/s',
+        'radiation_direct_horizontal': 'W/m2',
+        'radiation_diffuse_horizontal': 'W/m2',
+    }
+
     geography, variable = column
 
     country = geography[0:2]
@@ -150,9 +158,11 @@ def get_field(column):
     else:
         resolution = 'NUTS-2'
 
+    unit = units[variable]
+
     field_template = '''
     name: {geography}_{variable}
-    description: {variable} weather variable for {geography}
+    description: {variable} weather variable for {geography} in {unit}
     type: number (float)
     opsdProperties:
         Variable: {variable}
@@ -163,6 +173,7 @@ def get_field(column):
         variable=variable,
         country=country,
         resolution=resolution,
+        unit=unit
     )
 
     return yaml.load(field_template)
