@@ -49,6 +49,7 @@ metadata_head = '''
 profile: tabular-data-package
 name: opsd_weather_data
 title: Weather Data
+id: 'https://doi.org/10.25832/weather_data/{version}'
 description: Hourly geographically aggregated weather data for Europe
 longDescription: "This data package contains weather data relevant for power system modeling, at hourly resolution, for Europe, aggregated by Renewables.ninja from the NASA MERRA-2 reanalysis. It covers the European countries using a population-weighted mean across all MERRA-2 grid cells within the given country. It also covers Germany's NUTS-2 zones."
 homepage: 'https://data.open-power-system-data.org/weather_data/{version}'
