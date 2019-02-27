@@ -16,5 +16,6 @@ dependencies:
   - tqdm
   - joblib
   - pyyaml
+  - xlsxwriter
   - pip:
     - gsee==0.2.0
