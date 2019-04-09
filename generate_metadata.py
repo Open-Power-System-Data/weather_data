@@ -107,7 +107,7 @@ dialect:
     delimiter: ","
     lineTerminator: "\\n"
     header: true
-alternativeFormats:
+_alternativeFormats:
   - path: weather_data.csv
     stacking: Singleindex
     format: csv
